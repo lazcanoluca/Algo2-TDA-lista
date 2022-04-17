@@ -1,9 +1,15 @@
 #include "cola.h"
 #include "lista.h"
 
+typedef struct lista cola_t;
+
 cola_t *cola_crear()
 {
-	return NULL;
+	cola_t *cola = calloc(1, sizeof(cola_t));
+	if(!cola){
+		return NULL;
+	}
+	return cola;
 }
 
 cola_t *cola_encolar(cola_t *cola, void *elemento)
@@ -18,20 +24,35 @@ void *cola_desencolar(cola_t *cola)
 
 void *cola_frente(cola_t *cola)
 {
-	return NULL;
+	if(!cola || cola_vacia(cola)){
+		return NULL;
+	}
+	return cola->nodo_inicio->elemento;
 }
 
 size_t cola_tamanio(cola_t *cola)
 {
-	return 0;
+	if(!cola){
+		return 0;
+	}
+	return cola->cantidad;
 }
 
 bool cola_vacia(cola_t *cola)
 {
+	if(!cola || cola->cantidad == 0){
+		return true;
+	}
 	return false;
 }
 
 void cola_destruir(cola_t *cola)
 {
-
+	if(!cola){
+		return;
+	}
+	while(!cola_vacia(cola)){
+		cola_desencolar(cola);
+	}
+	free(cola);
 }

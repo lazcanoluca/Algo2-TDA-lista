@@ -1,7 +1,10 @@
 #include "pila.h"
 #include "lista.h"
 
-typedef struct lista pila_t;
+struct _pila_t{
+	nodo_t *tope;
+	size_t cantidad;
+};
 
 pila_t *pila_crear()
 {
@@ -17,12 +20,15 @@ pila_t *pila_apilar(pila_t *pila, void *elemento)
 	if(!pila){
 		return NULL;
 	}
-	nodo_t *nuevo_nodo = malloc(sizeof(nodo_t));
+	nodo_t *nuevo_nodo = malloc(sizeof(struct nodo));
 	if(!nuevo_nodo){
 		return NULL;
 	}
-	pila->nodo_fin->siguiente = nuevo_nodo;
 	nuevo_nodo->elemento = elemento;
+	nuevo_nodo->siguiente = pila->tope;
+
+	pila->tope = nuevo_nodo;
+	pila->cantidad++;
 
 	return pila;
 }
@@ -32,14 +38,16 @@ void *pila_desapilar(pila_t *pila)
 	if(!pila){
 		return NULL;
 	}
-	nodo_t *nodo_aux = malloc(sizeof(nodo_t));
-	if(!nodo_aux){
-		return NULL;
-	}
-	nodo_aux = pila->nodo_fin;
-	free(nodo_aux);
+	nodo_t *nuevo_tope = pila->tope->siguiente;
+	void* elemento_a_desapilar = pila->tope->elemento;
 
-	return pila;
+	free(pila->tope);
+
+	pila->tope = nuevo_tope;
+
+	pila->cantidad--;
+
+	return elemento_a_desapilar;
 }
 
 void *pila_tope(pila_t *pila)
@@ -47,7 +55,7 @@ void *pila_tope(pila_t *pila)
 	if(!pila || pila->cantidad == 0){
 		return NULL;
 	}
-	return pila->nodo_fin->elemento;
+	return pila->tope->elemento;
 }
 
 size_t pila_tamanio(pila_t *pila)

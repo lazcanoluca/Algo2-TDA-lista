@@ -1,7 +1,11 @@
 #include "cola.h"
 #include "lista.h"
 
-typedef struct lista cola_t;
+struct _cola_t{
+	nodo_t *fin;
+	nodo_t *principio;
+	size_t cantidad;
+};
 
 cola_t *cola_crear()
 {
@@ -27,7 +31,7 @@ void *cola_frente(cola_t *cola)
 	if(!cola || cola_vacia(cola)){
 		return NULL;
 	}
-	return cola->nodo_inicio->elemento;
+	return cola->principio->elemento;
 }
 
 size_t cola_tamanio(cola_t *cola)

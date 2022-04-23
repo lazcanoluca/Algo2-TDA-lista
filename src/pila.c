@@ -39,7 +39,7 @@ void *pila_desapilar(pila_t *pila)
 		return NULL;
 	}
 	nodo_t *nuevo_tope = pila->tope->siguiente;
-	void* elemento_a_desapilar = pila->tope->elemento;
+	void* elemento_a_desapilar = pila_tope(pila);
 
 	free(pila->tope);
 
@@ -52,7 +52,7 @@ void *pila_desapilar(pila_t *pila)
 
 void *pila_tope(pila_t *pila)
 {
-	if(!pila || pila->cantidad == 0){
+	if(pila_vacia(pila)){
 		return NULL;
 	}
 	return pila->tope->elemento;
@@ -68,7 +68,7 @@ size_t pila_tamanio(pila_t *pila)
 
 bool pila_vacia(pila_t *pila)
 {
-	if(!pila || pila->cantidad == 0){
+	if(!pila || pila_tamanio(pila) == 0){
 		return true;
 	}
 	return false;

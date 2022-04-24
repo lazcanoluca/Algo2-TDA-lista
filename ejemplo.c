@@ -42,21 +42,27 @@ void probar_operaciones_lista()
 
 	lista_insertar(lista, &a);
 	lista_insertar(lista, &c);
-	lista_insertar_en_posicion(lista, &d, 100);
 	lista_insertar_en_posicion(lista, &b, 1);
+	lista_insertar_en_posicion(lista, &d, 100);
 	lista_insertar_en_posicion(lista, &w, 3);
 
-	char *valor_quitado = lista_quitar_de_posicion(lista, 3);
+	/* char *valor_quitado = lista_quitar_de_posicion(lista, 3);
 	printf("Elementos quitado de la posicion 3 de la lista: %c\n",
-	       *valor_quitado);
+	       *valor_quitado); */
 
-	printf("Elementos en la lista: ");
+	printf("%c \n", *(char *)lista_elemento_en_posicion(lista, 0));
+	printf("%c \n", *(char *)lista_elemento_en_posicion(lista, 1));
+	printf("%c \n", *(char *)lista_elemento_en_posicion(lista, 2));
+	printf("%c \n", *(char *)lista_elemento_en_posicion(lista, 3));
+	printf("%c \n", *(char *)lista_elemento_en_posicion(lista, 4));
+
+	/* printf("Elementos en la lista: ");
 	for (size_t i = 0; i < lista_tamanio(lista); i++)
 		printf("%c ", *(char *)lista_elemento_en_posicion(lista, i));
 
-	printf("\n\n");
+	printf("\n\n"); */
 
-	printf("Imprimo TODOS LOS ELEMENTOS DE LA LISTA usando el iterador externo: \n");
+	/* printf("Imprimo TODOS LOS ELEMENTOS DE LA LISTA usando el iterador externo: \n");
 	lista_iterador_t *it = NULL;
 
 	for (it = lista_iterador_crear(lista);
@@ -91,7 +97,7 @@ void probar_operaciones_lista()
 	if(elemento_c && elemento_c == &c)
 		printf("ENCONTRADO\n");
 	else
-		printf("NO ENCONTRADO D:\n");
+		printf("NO ENCONTRADO D:\n"); */
 
 
 	lista_destruir(lista);
